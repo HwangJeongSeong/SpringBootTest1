@@ -1,11 +1,10 @@
-package com.mysite.test;
+package com.mysite.sbb2;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -20,8 +19,6 @@ public class Answer {
 
     private LocalDateTime createDate;
 
+    @ManyToOne
     private Question question;
-
-    @OneToMany
-    private List<Answer> answerList;
 }
