@@ -1,9 +1,10 @@
 package com.mysite.sbb2.answer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public class AnswerRepository {
-    public interface AnswerRepository extends JpaRepository<Answer, Integer>{
+@Repository
+public interface AnswerRepository extends JpaRepository<Answer, Integer> {
 
-    }
 }
+
