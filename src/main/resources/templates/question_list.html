@@ -1,6 +1,6 @@
 <!-- !하고 tab키 누르면 html 기본틀이 만들어진다 -->
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -17,9 +17,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="question : ${questionList}">
-        <td th:text="${question.subject}"></td>
-        <td th:text="${question.createDate}"></td>
+<!--    타임리프는 Model 객체에 저장한 questionList를 ${articleList}로 읽을 수 있다. -->
+<!--    위의 코드는 questionList에 저장된 데이터를 하나씩 꺼내 question 변수에 대입한 후 questionList의 개수만큼 반복하며 <tr> ... </tr> 문장을 출력하라는 의미이다. -->
+<!--    자바의 for each 문을 떠올리면 쉽게 이해할 수 있을 것이다.-->
+    <tr th:each="question : ${articleList}">
+        <!--<td> 태그를 통해 질문 목록의 제목을 텍스트로 출력하던 것에서 질문의 상세 내용이 담긴 웹 페이지로 이동할 수 있는 링크로 변경했다.-->
+        <!--URL을 연결하기 위해 타임리프의 th:href 속성을 사용한다. 이때 URL은 반드시 @{와 } 문자 사이에 입력해야 한다.-->
+        <!--타임리프에서는 /question/detail/과 같은 문자열과 ${question.id}와 같은 자바 객체의 값을 더할 때는 반드시 다음처럼 |로 좌우를 감싸 주어야 한다.-->
+        <td>
+            <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
+        </td>
     </tr>
     </tbody>
 </table>

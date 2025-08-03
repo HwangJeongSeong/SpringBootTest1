@@ -1,4 +1,4 @@
-package com.mysite.sbb2.question;
+package com.mysite.sbb2.article;
 
 import com.mysite.sbb2.answer.Answer;
 import jakarta.persistence.*;
@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Question {
+public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -24,7 +24,7 @@ public class Question {
 
     private LocalDateTime createDate;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
 }
 
