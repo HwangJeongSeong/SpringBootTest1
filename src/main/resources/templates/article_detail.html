@@ -2,13 +2,24 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Article Detail</title>
 </head>
 <body>
-<h1>제목</h1>
-<div>내용</div>
+<h1 th:text="${article.subject}"></h1>
+<div th:text="${article.content}"></div>
+
+<h2>답변</h2>
+<div th:each="answer : ${article.answerList}">
+    <div th:text="${answer.content}"></div>
+    <div th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+</div>
+
+<form th:action="@{|/answer/create/${article.id}|}" th:object="${answerForm}" method="post">
+    <textarea th:field="*{content}"></textarea>
+    <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+    <button type="submit">답변 등록</button>
+</form>
+
+<a th:href="@{/article/list}">목록으로</a>
 </body>
 </html>
