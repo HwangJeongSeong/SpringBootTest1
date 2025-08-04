@@ -1,5 +1,6 @@
 package com.mysite.sbb2.article;
 
+import com.mysite.sbb2.answer.AnswerForm;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class ArticleController {
 
     //html에서 th:href속성을 이용하기 위해 매핑
     @GetMapping(value = "/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer id) {
+    public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
         Article article = this.articleService.getArticle(id);
         model.addAttribute("article", article);
         return "article_detail";
