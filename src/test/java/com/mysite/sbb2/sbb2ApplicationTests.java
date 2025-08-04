@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class sbb2ApplicationTests {
 
 
-	// @Autowired 애너테이션을 통해 스프링의 ‘의존성 주입(DI)’이라는 기능을 사용하여 QuestionRepository의 객체를 주입했다.
+        // @Autowired 애너테이션을 통해 스프링의 ‘의존성 주입(DI)’이라는 기능을 사용하여 ArticleRepository의 객체를 주입했다.
 	@Autowired
 	private ArticleRepository articleRepository;
 
@@ -44,7 +44,7 @@ class sbb2ApplicationTests {
 
 	@Test
 	void testJpa2() {
-		//findAll은 sql에서 select * from question; 과 같다.
+                //findAll은 sql에서 select * from article; 과 같다.
 		List<Article> all = this.articleRepository.findAll();
 		//데이터 사이즈가 2개인지 확인하는 메서드. assertEquals(기댓값, 실젯값)
 		assertEquals(2, all.size());
@@ -55,7 +55,7 @@ class sbb2ApplicationTests {
 
 	@Test
 	void testJpa3() {
-		//findById의 리턴 타입은 Question이 아닌 Optional임
+                //findById의 리턴 타입은 Article이 아닌 Optional임
 		//findById로 호출한 값이 존재할 수도 있고, 존재하지 않을 수도 있어서 리턴 타입으로 Optional이 사용된 것
 		Optional<Article> oq = this.articleRepository.findById(1);
 		//isPresent()를 통해 값이 존재한다는 것
@@ -113,11 +113,11 @@ class sbb2ApplicationTests {
 		assertTrue(oq.isPresent());
 		Article q = oq.get();
 
-		Answer a = new Answer();
-		a.setContent("네 자동으로 생성됩니다.");
-		a.setQuestion(q);  // 어떤 질문의 답변인지 알기위해서 Question 객체가 필요하다.
-		a.setCreateDate(LocalDateTime.now());
-		this.answerRepository.save(a);
+                Answer a = new Answer();
+                a.setContent("네 자동으로 생성됩니다.");
+                a.setArticle(q);  // 어떤 질문의 답변인지 알기위해서 Article 객체가 필요하다.
+                a.setCreateDate(LocalDateTime.now());
+                this.answerRepository.save(a);
 	}
 
 	@Test
@@ -125,7 +125,7 @@ class sbb2ApplicationTests {
 		Optional<Answer> oa = this.answerRepository.findById(1);
 		assertTrue(oa.isPresent());
 		Answer a = oa.get();
-		assertEquals(2, a.getQuestion().getId());
+                assertEquals(2, a.getArticle().getId());
 	}
 
 	@Transactional

@@ -1,0 +1,16 @@
+@startuml
+class Article {
+    Integer id
+    String subject
+    String content
+    LocalDateTime createDate
+}
+
+class Answer {
+    Integer id
+    String content
+    LocalDateTime createDate
+}
+
+Article "1" <-- "*" Answer : article
+@enduml
