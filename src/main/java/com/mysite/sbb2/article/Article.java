@@ -1,6 +1,6 @@
 package com.mysite.sbb2.article;
 
-import com.mysite.sbb2.answer.Answer;
+import com.mysite.sbb2.coment.Coment;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +25,6 @@ public class Article {
     private LocalDateTime createDate;
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
-    private List<Answer> answerList;
+    private List<Coment> comentList;
 }
 

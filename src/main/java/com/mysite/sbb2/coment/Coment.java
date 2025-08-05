@@ -1,4 +1,4 @@
-package com.mysite.sbb2.answer;
+package com.mysite.sbb2.coment;
 
 import com.mysite.sbb2.article.Article;
 import jakarta.persistence.*;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-public class Answer {
+public class Coment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

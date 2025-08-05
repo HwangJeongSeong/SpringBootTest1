@@ -1,25 +1,59 @@
-<!doctype html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>Article Detail</title>
-</head>
-<body>
-<h1 th:text="${article.subject}"></h1>
-<div th:text="${article.content}"></div>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 
-<h2>답변</h2>
-<div th:each="answer : ${article.answerList}">
-    <div th:text="${answer.content}"></div>
-    <div th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+<div layout:fragment="content" class="container my-5">
+
+    <!-- 게시글 제목 -->
+    <h2 class="border-bottom pb-2 mb-4" th:text="${article.subject}">제목</h2>
+
+    <!-- 게시글 본문 -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;" th:text="${article.content}">내용</div>
+            <div class="d-flex justify-content-end mt-3">
+                <span class="badge bg-light text-dark p-2">
+                    <i class="bi bi-clock"></i>
+                    <span th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:mm')}">작성일</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 댓글 영역 -->
+    <h4 class="mb-3">댓글</h4>
+
+    <div th:if="${#lists.isEmpty(article.comentList)}">
+        <p class="text-muted">아직 등록된 댓글이 없습니다.</p>
+    </div>
+
+    <div class="mb-4" th:each="coment : ${article.comentList}">
+        <div class="card mb-2">
+            <div class="card-body">
+                <p class="card-text" th:text="${coment.content}">댓글 내용</p>
+                <div class="text-end text-muted small" th:text="${#temporals.format(coment.createDate, 'yyyy-MM-dd HH:mm')}">작성일시</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 댓글 작성 폼 -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">댓글 작성</h5>
+            <form th:action="@{|/coment/create/${article.id}|}" th:object="${comentForm}" method="post" novalidate>
+                <div class="mb-3">
+                    <label for="content" class="form-label">내용</label>
+                    <textarea id="content" th:field="*{content}" class="form-control" rows="4" placeholder="댓글을 입력하세요..."></textarea>
+                    <div class="text-danger small mt-1" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+                </div>
+                <button type="submit" class="btn btn-primary">댓글 등록</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 목록으로 돌아가기 -->
+    <a th:href="@{/article/list}" class="btn btn-secondary">목록으로</a>
+
 </div>
-
-<form th:action="@{|/answer/create/${article.id}|}" th:object="${answerForm}" method="post">
-    <textarea th:field="*{content}"></textarea>
-    <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
-    <button type="submit">답변 등록</button>
-</form>
-
-<a th:href="@{/article/list}">목록으로</a>
-</body>
 </html>

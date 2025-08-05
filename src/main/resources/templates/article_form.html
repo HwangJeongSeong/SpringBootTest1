@@ -1,0 +1,36 @@
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>게시글 작성</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="container my-3">
+
+  <h5 class="my-3 border-bottom pb-2">업로드</h5>
+
+  <form th:action="@{/article/create}" th:object="${articleForm}" method="post">
+    <div class="mb-3">
+      <label for="subject" class="form-label">제목</label>
+      <input type="text" id="subject" th:field="*{subject}" class="form-control" />
+      <div class="text-danger small" th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}"></div>
+    </div>
+
+    <div class="mb-3">
+      <label for="content" class="form-label">내용</label>
+      <textarea id="content" th:field="*{content}" class="form-control" rows="6"></textarea>
+      <div class="text-danger small" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+    </div>
+
+    <input type="submit" value="저장하기" class="btn btn-primary my-2">
+  </form>
+
+  <a th:href="@{/article/list}" class="btn btn-link mt-3">목록으로</a>
+
+</div>
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 package com.mysite.sbb2;
 
-import com.mysite.sbb2.answer.Answer;
-import com.mysite.sbb2.answer.AnswerRepository;
+import com.mysite.sbb2.coment.Coment;
+import com.mysite.sbb2.coment.ComentRepository;
 import com.mysite.sbb2.article.Article;
 import com.mysite.sbb2.article.ArticleRepository;
 import jakarta.transaction.Transactional;
@@ -25,7 +25,7 @@ class sbb2ApplicationTests {
 	private ArticleRepository articleRepository;
 
 	@Autowired
-	private AnswerRepository answerRepository;
+	private ComentRepository comentRepository;
 
 	@Test
 	void testJpa() {
@@ -113,18 +113,18 @@ class sbb2ApplicationTests {
 		assertTrue(oq.isPresent());
 		Article q = oq.get();
 
-                Answer a = new Answer();
+                Coment a = new Coment();
                 a.setContent("네 자동으로 생성됩니다.");
                 a.setArticle(q);  // 어떤 질문의 답변인지 알기위해서 Article 객체가 필요하다.
                 a.setCreateDate(LocalDateTime.now());
-                this.answerRepository.save(a);
+                this.comentRepository.save(a);
 	}
 
 	@Test
 	void testJpa10() {
-		Optional<Answer> oa = this.answerRepository.findById(1);
+		Optional<Coment> oa = this.comentRepository.findById(1);
 		assertTrue(oa.isPresent());
-		Answer a = oa.get();
+		Coment a = oa.get();
                 assertEquals(2, a.getArticle().getId());
 	}
 
@@ -135,10 +135,10 @@ class sbb2ApplicationTests {
 		assertTrue(oq.isPresent());
 		Article q = oq.get();
 
-		List<Answer> answerList = q.getAnswerList();
+		List<Coment> comentList = q.getComentList();
 
-		assertEquals(1, answerList.size());
-		assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
+		assertEquals(1, comentList.size());
+		assertEquals("네 자동으로 생성됩니다.", comentList.get(0).getContent());
 	}
 }
 
